@@ -18,15 +18,17 @@ class DarknessGame:
         # Directory is rather experimental, hope this works.
         self.directory = directory.Directory(self.window)
         self.player = player.Player(self.directory)
-        self.level = level.Level()
+        self.level = level.Level(self.directory)
 
         # Link objects to the directory
         self.directory.link('player', self.player)
         self.directory.link('level', self.level)
 
+        # Load the first level
+        self.level.loadLevel()
         self.directory.link('surface', self.level.surface, "level")
 
-        # Maybe to high, dunno
+        # Maybe too high, dunno
         self.FPS = 60
         self.clock = pygame.time.Clock()
 
@@ -77,8 +79,7 @@ class DarknessGame:
         self.window.fill((100, 100, 200))
         
         # Level
-        self.level.draw()
-        self.window.blit(self.directory.layers['level'], (0, 0))
+        self.window.blit(self.directory.surfaces['level'], (0, 0))
 
         # Objects
 
@@ -102,4 +103,4 @@ class DarknessGame:
             pygame.display.flip()
             
             # FPS Limiter
-            self.clock.tick(self.FPS)
+            self.clock.tick(self.FPS) 

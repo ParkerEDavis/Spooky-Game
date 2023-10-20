@@ -55,4 +55,7 @@ class Player(pygame.sprite.Sprite):
 
     # Plops player down in a completely new location
     def moveTo(self, new_x, new_y):
-        ...
+        self.x = new_x
+        self.y = new_y
+
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
