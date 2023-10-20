@@ -32,21 +32,60 @@ class DarknessGame:
     def eventHandler(self):
         ### Event Handler ###
         for event in pygame.event.get():
+            # Clicking the 'X' Button
             if event.type == pygame.QUIT:
                 self.running = False
+            
+            # Keypresses
+            elif event.type == pygame.KEYDOWN:
+                # Try to remember to remove this.
+                if event.key == pygame.K_ESCAPE:
+                    self.running = False
+                
+                # Moving Left
+                elif (event.key == pygame.K_a) or (event.key == pygame.K_LEFT):
+                    self.player.moving_left = True
+
+                # Moving Right
+                elif (event.key == pygame.K_d) or (event.key == pygame.K_RIGHT):
+                    self.player.moving_right = True
+            
+            # Key Releases
+            elif event.type == pygame.KEYUP:
+                # Stopping Left
+                if (event.key == pygame.K_a) or (event.key == pygame.K_LEFT):
+                    self.player.moving_left = False
+
+                # Stopping Right
+                elif (event.key == pygame.K_d) or (event.key == pygame.K_RIGHT):
+                    self.player.moving_right = False
     
+
+    def update(self):
+        # First, check player movement
+        self.player.update()
+
 
     def draw(self):
         ### Basically, draw everything ###
+        # Background
         self.window.fill((100, 100, 200))
+        
+        # Level
 
+        # Objects
+
+        # Player
+        self.player.draw() 
 
     def run(self):
         ### Main Game Loop ###
         while self.running:
             # Check for Player input
             self.eventHandler()
+
             # Update needed objects
+            self.update()
 
             # Draw
             self.draw()
