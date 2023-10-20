@@ -1,5 +1,6 @@
 import pygame
 import player
+import level
 import directory
 
 class DarknessGame:
@@ -17,9 +18,13 @@ class DarknessGame:
         # Directory is rather experimental, hope this works.
         self.directory = directory.Directory(self.window)
         self.player = player.Player(self.directory)
+        self.level = level.Level()
 
         # Link objects to the directory
         self.directory.link('player', self.player)
+        self.directory.link('level', self.level)
+
+        self.directory.link('surface', self.level.surface, "level")
 
         # Maybe to high, dunno
         self.FPS = 60
@@ -72,11 +77,14 @@ class DarknessGame:
         self.window.fill((100, 100, 200))
         
         # Level
+        self.level.draw()
+        self.window.blit(self.directory.layers['level'], (0, 0))
 
         # Objects
 
         # Player
-        self.player.draw() 
+        self.player.draw()
+    
 
     def run(self):
         ### Main Game Loop ###
