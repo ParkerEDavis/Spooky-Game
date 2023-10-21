@@ -110,9 +110,11 @@ class DarknessGame:
         # If the player is not too close to the edge
         x_offset = 288 - self.player.x
         
+        # If player x is too small, then the player is by the left border, and hence the screen stops scrolling
         if x_offset > 0:
             x_offset = 0
         
+        # I knew how this worked when I coded it :p
         elif self.level.width - 640 + x_offset < 0:
             x_offset = -self.level.width + 640
         
