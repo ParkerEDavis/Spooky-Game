@@ -24,7 +24,10 @@ class Player(pygame.sprite.Sprite):
 
     # Draw
     def draw(self):
+        # Fill surface with transparent pixels
         self.directory.surfaces['player'].fill((0, 0, 0, 0))
+
+        # Draw rects
         pygame.draw.rect(self.directory.surfaces['player'], (100, 200, 200, 125), self.hitbox)
         pygame.draw.rect(self.directory.surfaces['player'], (200, 200, 200), self.rect)
     
@@ -76,11 +79,14 @@ class Player(pygame.sprite.Sprite):
 
     # Plops player down in a completely new location
     def moveTo(self, new_x, new_y):
+        # Calculate dx
         dx = new_x - self.x
         dy = new_y - self.y
         
+        # Update Position
         self.x += dx
         self.y += dy
 
+        # Update rects
         self.rect.move_ip(dx, dy)
         self.hitbox.move_ip(dx, dy)
