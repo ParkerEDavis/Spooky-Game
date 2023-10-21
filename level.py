@@ -43,13 +43,11 @@ class Level:
         for line in raw_data:
             data.append(line.split())
         
-        print(zone)
         # The first line is the player's potential positions
         for i in range(len(data[0])):
             # Search for a position that matches the loading zone's direction
             if data[0][i] == zone[2]:
                 # Then, when found, move player to it
-                print(zone[2], int(data[0][i+1]), int(data[0][i+2]))
                 self.directory.player.moveTo(int(data[0][i+1]), int(data[0][i+2]))
                 break
 
@@ -108,7 +106,13 @@ class Level:
                 self.visual_surface.blit(img, (int(line[1]), int(line[2])))
             
             elif line[0] == 'object':
-                self.directory.link('object', lightswitch.Lightswitch(self.directory, int(line[1]), int(line[2])))
+                active = False
+                # Check if lightswitch has an existing flag in directory
+                if f"light{str(self.level)}" in self.directory.flags:
+                    # If it does, set the lightswitch's flag to be the existing flag
+                    active = self.directory.flags[f"light{str(self.level)}"]
+                
+                self.directory.link('object', lightswitch.Lightswitch(self.directory, int(line[1]), int(line[2]), active))
             
             elif line[0] == 'load_zone':
                 # "load_zone" [x] [y] [level ID], data sent to directory as list of [Rect, ID]

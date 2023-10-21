@@ -6,6 +6,4 @@ visual 0 176 wall 0 1
 visual 0 464 floor 0 1
 visual 505 240 door 1 .25
 object 300 376 lightswitch
-object 400 400 lightswitch
-object 200 376 lightswitch
 load_zone 590 400 0 right
