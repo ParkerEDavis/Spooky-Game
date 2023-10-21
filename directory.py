@@ -8,6 +8,7 @@ class Directory:
         self.level = False
         self.objects = []
         self.surfaces = {}
+        self.load_zones = []
 
     
     def link(self, type, thing, extra = False):
@@ -24,4 +25,5 @@ class Directory:
         elif type == 'player':
             self.player = thing
 
-        
+        elif type == 'load zone':
+            self.load_zones.append(thing)

@@ -28,7 +28,10 @@ class Level:
         self.interactables = []
     
 
-    def loadLevel(self):
+    def loadLevel(self, zone):
+        # zone is made of [Rect, Level ID, Direction]
+        self.level = zone[1]
+
         # Read level data
         raw_data = open(f"data/level_data/{self.level}.txt", "r")
 
@@ -40,9 +43,15 @@ class Level:
         for line in raw_data:
             data.append(line.split())
         
-        
-        # The first line is the player's position
-        self.directory.player.moveTo(int(data[0][0]), int(data[0][1]))
+        print(zone)
+        # The first line is the player's potential positions
+        for i in range(len(data[0])):
+            # Search for a position that matches the loading zone's direction
+            if data[0][i] == zone[2]:
+                # Then, when found, move player to it
+                print(zone[2], int(data[0][i+1]), int(data[0][i+2]))
+                self.directory.player.moveTo(int(data[0][i+1]), int(data[0][i+2]))
+                break
 
         data.pop(0)
 
@@ -66,8 +75,9 @@ class Level:
         self.directory.surfaces['object'] = self.object_surface
         self.directory.surfaces['player'] = self.player_surface
 
-        # Clear old object data while we're at it
+        # Clear old level data while we're at it
         self.directory.objects.clear()
+        self.directory.load_zones.clear()
 
         # The third line is border information
         self.borders[0] = int(data[0][0])
@@ -84,6 +94,22 @@ class Level:
         # "visual" [x] [y] "name (to be used to find image)"
         for line in data:
             if line[0] == 'visual':
-                self.visual_surface.blit(pygame.image.load(f"data/assets/{line[3]}.png"), (int(line[1]), int(line[2])))
+                # Load visual image
+                img = pygame.image.load(f"data/assets/{line[3]}.png")
+                
+                # Scale and flip to specified sizes
+                # Takes image dimensions and multiplies by given scale factor
+                img = pygame.transform.scale(img, (img.get_width() * float(line[5]), img.get_height() * float(line[5])))
+
+                # Flips
+                img = pygame.transform.flip(img, int(line[4]), 0)
+
+                # Display the image
+                self.visual_surface.blit(img, (int(line[1]), int(line[2])))
+            
             elif line[0] == 'object':
                 self.directory.link('object', lightswitch.Lightswitch(self.directory, int(line[1]), int(line[2])))
+            
+            elif line[0] == 'load_zone':
+                # "load_zone" [x] [y] [level ID], data sent to directory as list of [Rect, ID]
+                self.directory.link('load zone', [pygame.Rect(int(line[1]), int(line[2]), 5, 5), int(line[3]), line[4]])

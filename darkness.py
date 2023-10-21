@@ -25,7 +25,7 @@ class DarknessGame:
         self.directory.link('level', self.level)
 
         # Load the first level
-        self.level.loadLevel()
+        self.level.loadLevel([False, 0, 'none'])
         self.directory.link('surface', self.level.visual_surface, "visual")
         self.directory.link('surface', self.level.object_surface, "object")
         self.directory.link('surface', self.level.player_surface, "player")
@@ -60,9 +60,9 @@ class DarknessGame:
                     self.player.moving_right = True
                 
                 # Test for level switch
-                elif event.key == pygame.K_n:
-                    self.level.level += 1
-                    self.level.loadLevel()
+                #elif event.key == pygame.K_n:
+                #    self.level.level += 1
+                #    self.level.loadLevel()
                 
                 # Player Interact
                 elif event.key == pygame.K_SPACE:
@@ -99,6 +99,10 @@ class DarknessGame:
         # Then draw objects onto it
         for obj in self.directory.objects:
             obj.draw()
+        
+        # Drawing loading zones for now
+        for zone in self.directory.load_zones:
+            pygame.draw.rect(self.directory.surfaces['object'], (100, 100, 150), zone[0])
 
         # Player
         self.player.draw()
