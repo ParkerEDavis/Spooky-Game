@@ -35,20 +35,14 @@ class Level:
 
     def loadLevel(self, zone):
         ## Fade to black
-        self.extra_surface.fill((0, 0, 0, 85))
-        self.directory.window.blit(self.extra_surface, (0, 0))
-        pygame.display.flip()
-        self.directory.clock.tick(self.directory.FPS)
-
-        self.extra_surface.fill((0, 0, 0, 170))
-        self.directory.window.blit(self.extra_surface, (0, 0))
-        pygame.display.flip()
-        self.directory.clock.tick(self.directory.FPS)
-
-        self.extra_surface.fill((0, 0, 0, 255))
-        self.directory.window.blit(self.extra_surface, (0, 0))
-        pygame.display.flip()
-        self.directory.clock.tick(self.directory.FPS)
+        opacity = 0
+        # Increase opacity by 1/3 every tick, and render it
+        for i in range(3):
+            opacity += 85
+            self.extra_surface.fill((0, 0, 0, opacity))
+            self.directory.window.blit(self.extra_surface, (0, 0))
+            pygame.display.flip()
+            self.directory.clock.tick(self.directory.FPS)
 
         # zone is made of [Level ID, Direction]
         self.level = zone[0]
@@ -142,17 +136,10 @@ class Level:
                     self.directory.link('object', door.Door(self.directory, int(line[1]), int(line[2]), int(line[4],), int(line[5]), line[6]))
             
         ## Fade to In
-        self.extra_surface.fill((0, 0, 0, 170))
-        self.directory.window.blit(self.extra_surface, (0, 0))
-        pygame.display.flip()
-        self.directory.clock.tick(self.directory.FPS)
-
-        self.extra_surface.fill((0, 0, 0, 85))
-        self.directory.window.blit(self.extra_surface, (0, 0))
-        pygame.display.flip()
-        self.directory.clock.tick(self.directory.FPS)
-
-        self.extra_surface.fill((0, 0, 0, 0))
-        self.directory.window.blit(self.extra_surface, (0, 0))
-        pygame.display.flip()
-        self.directory.clock.tick(self.directory.FPS)
+        # Decrease opacity by 1/3 every tick, and render it
+        for i in range(3):
+            opacity -= 85
+            self.extra_surface.fill((0, 0, 0, opacity))
+            self.directory.window.blit(self.extra_surface, (0, 0))
+            pygame.display.flip()
+            self.directory.clock.tick(self.directory.FPS)
