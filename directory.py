@@ -6,9 +6,10 @@ class Directory:
         self.window = window
         self.player = False
         self.level = False
+        self.clock = False
+        self.FPS = False
         self.objects = []
         self.surfaces = {}
-        #self.load_zones = []
         self.flags = {}
 
     
@@ -31,3 +32,7 @@ class Directory:
         
         elif type == 'flag':
             self.flags[extra] = thing
+        
+        elif type == 'clock':
+            self.clock = thing
+            self.FPS = extra

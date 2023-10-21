@@ -20,6 +20,13 @@ class DarknessGame:
         self.player = player.Player(self.directory)
         self.level = level.Level(self.directory)
 
+        # Maybe too high, dunno
+        self.FPS = 60
+        self.clock = pygame.time.Clock()
+
+        # Gotta link these too, for cutscenes
+        self.directory.link('clock', self.clock, self.FPS)
+
         # Link objects to the directory
         self.directory.link('player', self.player)
         self.directory.link('level', self.level)
@@ -29,10 +36,7 @@ class DarknessGame:
         self.directory.link('surface', self.level.visual_surface, "visual")
         self.directory.link('surface', self.level.object_surface, "object")
         self.directory.link('surface', self.level.player_surface, "player")
-
-        # Maybe too high, dunno
-        self.FPS = 60
-        self.clock = pygame.time.Clock()
+        self.directory.link('surface', self.level.extra_surface, "extra")
 
         # Running flag
         self.running = True
@@ -58,11 +62,6 @@ class DarknessGame:
                 # Moving Right
                 elif (event.key == pygame.K_d) or (event.key == pygame.K_RIGHT):
                     self.player.moving_right = True
-                
-                # Test for level switch
-                #elif event.key == pygame.K_n:
-                #    self.level.level += 1
-                #    self.level.loadLevel()
                 
                 # Player Interact
                 elif event.key == pygame.K_SPACE:
@@ -97,10 +96,6 @@ class DarknessGame:
         # Then draw objects onto it
         for obj in self.directory.objects:
             obj.draw()
-        
-        # Drawing loading zones for now
-        #for zone in self.directory.load_zones:
-        #    pygame.draw.rect(self.directory.surfaces['object'], (100, 100, 150), zone[0])
 
         # Player
         self.player.draw()
@@ -122,6 +117,7 @@ class DarknessGame:
         self.window.blit(self.directory.surfaces['visual'], (x_offset, 0))
         self.window.blit(self.directory.surfaces['object'], (x_offset, 0))
         self.window.blit(self.directory.surfaces['player'], (x_offset, 0))
+        self.window.blit(self.directory.surfaces['extra'], (0, 0))
     
 
     def run(self):
