@@ -2,7 +2,7 @@
 640 640
 80 560
 visual 0 0 roof
-visual 1000 176 wall
+visual 0 176 wall
 visual 0 464 floor
 object 400 376 lightswitch
 object 200 376 lightswitch
