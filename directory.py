@@ -8,7 +8,7 @@ class Directory:
         self.level = False
         self.objects = []
         self.surfaces = {}
-        self.load_zones = []
+        #self.load_zones = []
         self.flags = {}
 
     

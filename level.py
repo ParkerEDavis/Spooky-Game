@@ -30,8 +30,8 @@ class Level:
     
 
     def loadLevel(self, zone):
-        # zone is made of [Rect, Level ID, Direction]
-        self.level = zone[1]
+        # zone is made of [Level ID, Direction]
+        self.level = zone[0]
 
         # Read level data
         raw_data = open(f"data/level_data/{self.level}.txt", "r")
@@ -47,7 +47,7 @@ class Level:
         # The first line is the player's potential positions
         for i in range(len(data[0])):
             # Search for a position that matches the loading zone's direction
-            if data[0][i] == zone[2]:
+            if data[0][i] == zone[1]:
                 # Then, when found, move player to it
                 self.directory.player.moveTo(int(data[0][i+1]), int(data[0][i+2]))
                 break
@@ -76,7 +76,7 @@ class Level:
 
         # Clear old level data while we're at it
         self.directory.objects.clear()
-        self.directory.load_zones.clear()
+        #self.directory.load_zones.clear()
 
         # The third line is border information
         self.borders[0] = int(data[0][0])
@@ -119,8 +119,8 @@ class Level:
                 
                 # Door, this one isn't so complicated
                 elif line[3] == 'door':
-                    self.directory.link('object', door.Door(self.directory, int(line[1]), int(line[2]), int(line[4])))
+                    self.directory.link('object', door.Door(self.directory, int(line[1]), int(line[2]), int(line[4],), int(line[5]), line[6]))
             
-            elif line[0] == 'load_zone':
+            #elif line[0] == 'load_zone':
                 # "load_zone" [x] [y] [level ID], data sent to directory as list of [Rect, ID]
-                self.directory.link('load zone', [pygame.Rect(int(line[1]), int(line[2]), 5, 5), int(line[3]), line[4]])
+                #self.directory.link('load zone', [pygame.Rect(int(line[1]), int(line[2]), 5, 5), int(line[3]), line[4]])

@@ -4,6 +4,5 @@ right 500 400
 visual 0 0 roof 0 1
 visual 0 176 wall 0 1
 visual 0 464 floor 0 1
-object 505 240 door 1
+object 505 240 door 1 0 right
 object 300 376 lightswitch
-load_zone 590 400 0 right
