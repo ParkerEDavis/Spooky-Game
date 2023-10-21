@@ -18,6 +18,10 @@ class Level:
         self.visual_surface = pygame.Surface((100, 100))
         self.object_surface = pygame.Surface((100, 100))
 
+        # For fades to black
+        self.extra_surface = pygame.Surface((640, 640)).convert_alpha()
+        self.extra_surface.fill((0, 0, 0, 0))
+
         ## Level stuff
         # Left and right borders
         self.borders = [0, 0]
@@ -30,6 +34,22 @@ class Level:
     
 
     def loadLevel(self, zone):
+        ## Fade to black
+        self.extra_surface.fill((0, 0, 0, 85))
+        self.directory.window.blit(self.extra_surface, (0, 0))
+        pygame.display.flip()
+        self.directory.clock.tick(self.directory.FPS)
+
+        self.extra_surface.fill((0, 0, 0, 170))
+        self.directory.window.blit(self.extra_surface, (0, 0))
+        pygame.display.flip()
+        self.directory.clock.tick(self.directory.FPS)
+
+        self.extra_surface.fill((0, 0, 0, 255))
+        self.directory.window.blit(self.extra_surface, (0, 0))
+        pygame.display.flip()
+        self.directory.clock.tick(self.directory.FPS)
+
         # zone is made of [Level ID, Direction]
         self.level = zone[0]
 
@@ -121,6 +141,18 @@ class Level:
                 elif line[3] == 'door':
                     self.directory.link('object', door.Door(self.directory, int(line[1]), int(line[2]), int(line[4],), int(line[5]), line[6]))
             
-            #elif line[0] == 'load_zone':
-                # "load_zone" [x] [y] [level ID], data sent to directory as list of [Rect, ID]
-                #self.directory.link('load zone', [pygame.Rect(int(line[1]), int(line[2]), 5, 5), int(line[3]), line[4]])
+        ## Fade to In
+        self.extra_surface.fill((0, 0, 0, 170))
+        self.directory.window.blit(self.extra_surface, (0, 0))
+        pygame.display.flip()
+        self.directory.clock.tick(self.directory.FPS)
+
+        self.extra_surface.fill((0, 0, 0, 85))
+        self.directory.window.blit(self.extra_surface, (0, 0))
+        pygame.display.flip()
+        self.directory.clock.tick(self.directory.FPS)
+
+        self.extra_surface.fill((0, 0, 0, 0))
+        self.directory.window.blit(self.extra_surface, (0, 0))
+        pygame.display.flip()
+        self.directory.clock.tick(self.directory.FPS)
