@@ -14,6 +14,7 @@ class Player(pygame.sprite.Sprite):
 
         # Rect
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.hitbox = pygame.Rect(self.x - 16, self.y - 16, self.width + 32, self.height + 32)
 
         # Movement
         self.speed = 3
@@ -23,7 +24,9 @@ class Player(pygame.sprite.Sprite):
 
     # Draw
     def draw(self):
-        pygame.draw.rect(self.directory.window, (200, 200, 200), self.rect)
+        self.directory.surfaces['player'].fill((0, 0, 0, 0))
+        pygame.draw.rect(self.directory.surfaces['player'], (100, 200, 200, 125), self.hitbox)
+        pygame.draw.rect(self.directory.surfaces['player'], (200, 200, 200), self.rect)
     
 
     def update(self):
@@ -60,6 +63,7 @@ class Player(pygame.sprite.Sprite):
 
         # Move rect
         self.rect.move_ip(dx, dy)
+        self.hitbox.move_ip(dx, dy)
     
 
     # Plops player down in a completely new location
@@ -71,3 +75,4 @@ class Player(pygame.sprite.Sprite):
         self.y += dy
 
         self.rect.move_ip(dx, dy)
+        self.hitbox.move_ip(dx, dy)

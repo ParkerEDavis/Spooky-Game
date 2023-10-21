@@ -55,13 +55,16 @@ class Level:
         # Recreate the surface
         self.visual_surface = pygame.Surface((self.width, self.height))
         self.object_surface = pygame.Surface((self.width, self.height)).convert_alpha()
+        self.player_surface = pygame.Surface((self.width, self.height)).convert_alpha()
 
         # Make sure the object surface is transparent
         self.object_surface.fill((0, 0, 0, 0))
+        self.player_surface.fill((0, 0, 0, 0))
 
         # And link the new one
         self.directory.surfaces['visual'] = self.visual_surface
         self.directory.surfaces['object'] = self.object_surface
+        self.directory.surfaces['player'] = self.player_surface
 
         # Clear old object data while we're at it
         self.directory.objects.clear()

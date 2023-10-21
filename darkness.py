@@ -28,6 +28,7 @@ class DarknessGame:
         self.level.loadLevel()
         self.directory.link('surface', self.level.visual_surface, "visual")
         self.directory.link('surface', self.level.object_surface, "object")
+        self.directory.link('surface', self.level.player_surface, "player")
 
         # Maybe too high, dunno
         self.FPS = 60
@@ -87,6 +88,7 @@ class DarknessGame:
         # Level
         self.window.blit(self.directory.surfaces['visual'], (0, 0))
         self.window.blit(self.directory.surfaces['object'], (0, 0))
+        self.window.blit(self.directory.surfaces['player'], (0, 0))
 
         # Objects
         for obj in self.directory.objects:
