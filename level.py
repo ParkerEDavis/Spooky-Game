@@ -106,7 +106,13 @@ class Level:
                 self.visual_surface.blit(img, (int(line[1]), int(line[2])))
             
             elif line[0] == 'object':
-                self.directory.link('object', lightswitch.Lightswitch(self.directory, int(line[1]), int(line[2])))
+                active = False
+                # Check if lightswitch has an existing flag in directory
+                if f"light{str(self.level)}" in self.directory.flags:
+                    # If it does, set the lightswitch's flag to be the existing flag
+                    active = self.directory.flags[f"light{str(self.level)}"]
+                
+                self.directory.link('object', lightswitch.Lightswitch(self.directory, int(line[1]), int(line[2]), active))
             
             elif line[0] == 'load_zone':
                 # "load_zone" [x] [y] [level ID], data sent to directory as list of [Rect, ID]

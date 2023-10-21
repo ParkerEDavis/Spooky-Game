@@ -1,7 +1,7 @@
 import pygame
 
 class Lightswitch:
-    def __init__(self, directory, x, y):
+    def __init__(self, directory, x, y, active):
         # Directory
         self.directory = directory
         
@@ -17,22 +17,31 @@ class Lightswitch:
 
         # Flags
         self.highlighted = False
-        self.activated = False
+        self.activated = active
 
         # Color for testing
-        self.color = (150, 100, 100)
+        if self.activated:
+            self.color = (100, 150, 100)
+        else:
+            self.color = (150, 100, 100)
 
 
     def activate(self):
         # Calls when the player presses activate when object is in hitbox
         if not self.activated:
+            # When activated, make green and active
             self.color = (100, 150, 100)
             self.activated = True
+
+            # Set flag to true
+            self.directory.flags[f"light{str(self.directory.level.level)}"] = True
 
         # If green, turn off (red)
         else:
             self.color = (150, 100, 100)
             self.activated = False
+
+            self.directory.flags[f"light{str(self.directory.level.level)}"] = False
 
 
     def draw(self):

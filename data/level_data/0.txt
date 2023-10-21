@@ -7,6 +7,5 @@ visual 0 464 floor 0 1
 visual -2 240 door 1 .25
 visual 505 240 door 0 .25
 object 400 376 lightswitch
-object 200 376 lightswitch
 load_zone 590 400 1 left
 load_zone 50 400 2 right

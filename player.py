@@ -81,7 +81,6 @@ class Player(pygame.sprite.Sprite):
             # If player collides with load zone
             if zone[0].colliderect(self.rect):
                 # Reload the level, passing the loading zone
-                print(f"Sending Zone: {zone}")
                 self.directory.level.loadLevel(zone)
     
 

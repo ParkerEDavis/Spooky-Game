@@ -9,6 +9,7 @@ class Directory:
         self.objects = []
         self.surfaces = {}
         self.load_zones = []
+        self.flags = {}
 
     
     def link(self, type, thing, extra = False):
@@ -27,3 +28,6 @@ class Directory:
 
         elif type == 'load zone':
             self.load_zones.append(thing)
+        
+        elif type == 'flag':
+            self.flags[extra] = thing
