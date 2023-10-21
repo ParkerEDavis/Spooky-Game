@@ -25,7 +25,7 @@ class DarknessGame:
         self.directory.link('level', self.level)
 
         # Load the first level
-        self.level.loadLevel([False, 0, 'none'])
+        self.level.loadLevel([0, 'none'])
         self.directory.link('surface', self.level.visual_surface, "visual")
         self.directory.link('surface', self.level.object_surface, "object")
         self.directory.link('surface', self.level.player_surface, "player")
@@ -99,8 +99,8 @@ class DarknessGame:
             obj.draw()
         
         # Drawing loading zones for now
-        for zone in self.directory.load_zones:
-            pygame.draw.rect(self.directory.surfaces['object'], (100, 100, 150), zone[0])
+        #for zone in self.directory.load_zones:
+        #    pygame.draw.rect(self.directory.surfaces['object'], (100, 100, 150), zone[0])
 
         # Player
         self.player.draw()
