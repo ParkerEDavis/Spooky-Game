@@ -28,7 +28,10 @@ class Level:
         self.interactables = []
     
 
-    def loadLevel(self):
+    def loadLevel(self, zone):
+        # zone is made of [Rect, Level ID, Direction]
+        self.level = zone[1]
+
         # Read level data
         raw_data = open(f"data/level_data/{self.level}.txt", "r")
 
@@ -40,9 +43,15 @@ class Level:
         for line in raw_data:
             data.append(line.split())
         
-        
-        # The first line is the player's position
-        self.directory.player.moveTo(int(data[0][0]), int(data[0][1]))
+        print(zone)
+        # The first line is the player's potential positions
+        for i in range(len(data[0])):
+            # Search for a position that matches the loading zone's direction
+            if data[0][i] == zone[2]:
+                # Then, when found, move player to it
+                print(zone[2], int(data[0][i+1]), int(data[0][i+2]))
+                self.directory.player.moveTo(int(data[0][i+1]), int(data[0][i+2]))
+                break
 
         data.pop(0)
 
@@ -103,4 +112,4 @@ class Level:
             
             elif line[0] == 'load_zone':
                 # "load_zone" [x] [y] [level ID], data sent to directory as list of [Rect, ID]
-                self.directory.link('load zone', [pygame.Rect(int(line[1]), int(line[2]), 5, 5), int(line[3])])
+                self.directory.link('load zone', [pygame.Rect(int(line[1]), int(line[2]), 5, 5), int(line[3]), line[4]])

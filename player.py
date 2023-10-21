@@ -80,11 +80,9 @@ class Player(pygame.sprite.Sprite):
         for zone in self.directory.load_zones:
             # If player collides with load zone
             if zone[0].colliderect(self.rect):
-                # Change level id to level if of loading zone
-                self.directory.level.level = zone[1]
-                
-                # Reload the level
-                self.directory.level.loadLevel()
+                # Reload the level, passing the loading zone
+                print(f"Sending Zone: {zone}")
+                self.directory.level.loadLevel(zone)
     
 
     # Plops player down in a completely new location

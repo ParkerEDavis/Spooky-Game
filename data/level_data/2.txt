@@ -1,11 +1,11 @@
-140 400
+right 500 400
 640 640
 40 600
 visual 0 0 roof 0 1
 visual 0 176 wall 0 1
 visual 0 464 floor 0 1
-visual -2 240 door 1 .25
+visual 505 240 door 1 .25
 object 300 376 lightswitch
 object 400 400 lightswitch
 object 200 376 lightswitch
-load_zone 60 400 0
+load_zone 590 400 0 right
