@@ -105,5 +105,5 @@ class Player(pygame.sprite.Sprite):
         self.directory.surfaces['player'].fill((0, 0, 0, 0))
 
         # Draw rects
-        pygame.draw.rect(self.directory.surfaces['player'], (100, 200, 200, 125), self.hitbox)
+        #pygame.draw.rect(self.directory.surfaces['player'], (100, 200, 200, 125), self.hitbox)
         pygame.draw.rect(self.directory.surfaces['player'], (200, 200, 200), self.rect)

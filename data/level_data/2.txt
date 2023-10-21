@@ -1,4 +1,4 @@
-right 500 400
+right 540 400
 640 640
 40 600
 visual 0 0 roof 0 1
