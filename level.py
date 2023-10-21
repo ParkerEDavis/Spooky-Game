@@ -73,8 +73,8 @@ class Level:
         data.pop(0)
 
         # Display these for now
-        #self.surface.fill((200, 100, 100))
-        #pygame.draw.rect(self.visual_surface, (100, 200, 100), (self.borders[0], 0, self.borders[1] - self.borders[0], 640))
+        self.visual_surface.fill((200, 100, 100))
+        pygame.draw.rect(self.visual_surface, (100, 200, 100), (self.borders[0], 0, self.borders[1] - self.borders[0], 640))
         
         # The rest are visuals and interactables
         # VISUAL:

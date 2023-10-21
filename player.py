@@ -37,9 +37,18 @@ class Player(pygame.sprite.Sprite):
         if self.moving_right:
             dx += 1
         
+        # Player go zoom (at speed of self.speed)
+        dx = dx * self.speed
+
+        # Check to see if player tries to go out of bounds
+        if self.rect.right + dx > self.directory.level.borders[1]:
+            dx = self.directory.level.borders[1] - self.rect.right
+        elif self.x + dx < self.directory.level.borders[0]:
+            dx = self.directory.level.borders[0] - self.x
+        
         # Move the player
         # Player will not move vertically
-        self.move(dx * self.speed, 0)
+        self.move(dx, 0)
     
 
     # Moves the player a given number of pixels
