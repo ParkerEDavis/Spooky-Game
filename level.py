@@ -66,8 +66,9 @@ class Level:
         self.directory.surfaces['object'] = self.object_surface
         self.directory.surfaces['player'] = self.player_surface
 
-        # Clear old object data while we're at it
+        # Clear old level data while we're at it
         self.directory.objects.clear()
+        self.directory.load_zones.clear()
 
         # The third line is border information
         self.borders[0] = int(data[0][0])
@@ -96,5 +97,10 @@ class Level:
 
                 # Display the image
                 self.visual_surface.blit(img, (int(line[1]), int(line[2])))
+            
             elif line[0] == 'object':
                 self.directory.link('object', lightswitch.Lightswitch(self.directory, int(line[1]), int(line[2])))
+            
+            elif line[0] == 'load_zone':
+                # "load_zone" [x] [y] [level ID], data sent to directory as list of [Rect, ID]
+                self.directory.link('load zone', [pygame.Rect(int(line[1]), int(line[2]), 5, 5), int(line[3])])

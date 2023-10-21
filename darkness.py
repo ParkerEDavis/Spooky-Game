@@ -82,6 +82,7 @@ class DarknessGame:
     def update(self):
         # First, check player movement
         self.player.update()
+        print(self.directory.load_zones)
 
 
     def draw(self):
