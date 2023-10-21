@@ -86,16 +86,23 @@ class DarknessGame:
         self.window.fill((100, 100, 200))
         
         # Level
-        self.window.blit(self.directory.surfaces['visual'], (0, 0))
-        self.window.blit(self.directory.surfaces['object'], (0, 0))
-        self.window.blit(self.directory.surfaces['player'], (0, 0))
+        
 
         # Objects
+        # Clear object surface
+        self.directory.surfaces['object'].fill((0, 0, 0, 0))
+        
+        # Then draw objects onto it
         for obj in self.directory.objects:
             obj.draw()
 
         # Player
         self.player.draw()
+        
+        # Drawing the layers
+        self.window.blit(self.directory.surfaces['visual'], (0, 0))
+        self.window.blit(self.directory.surfaces['object'], (0, 0))
+        self.window.blit(self.directory.surfaces['player'], (0, 0))
     
 
     def run(self):

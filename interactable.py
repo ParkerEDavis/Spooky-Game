@@ -14,9 +14,13 @@ class Interactable(pygame.sprite.Sprite):
 
         # Rect
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.highlight_rect = pygame.Rect(self.x - 5, self.y - 5, self.width + 10, self.height + 10)
 
-        self.color = (200, 100, 100)
+        self.highlighted = False
 
     # Temporary
     def draw(self):
-        pygame.draw.rect(self.directory.surfaces['object'], self.color, self.rect)
+        pygame.draw.rect(self.directory.surfaces['object'], (150, 100, 100), self.rect)
+        
+        if self.highlighted:
+            pygame.draw.rect(self.directory.surfaces['object'], (0, 0, 0), self.highlight_rect, 5)

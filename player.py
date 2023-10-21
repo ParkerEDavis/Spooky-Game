@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.hitbox = pygame.Rect(self.x - 16, self.y - 16, self.width + 32, self.height + 32)
 
         # Movement
-        self.speed = 3
+        self.speed = 1
         self.moving_left = False
         self.moving_right = False
     
@@ -48,6 +48,14 @@ class Player(pygame.sprite.Sprite):
             dx = self.directory.level.borders[1] - self.rect.right
         elif self.x + dx < self.directory.level.borders[0]:
             dx = self.directory.level.borders[0] - self.x
+        
+        # Then, if player moved, check for objects in hitbox, if so, highlight
+        if dx != 0:
+            for obj in self.directory.objects:
+                if obj.rect.colliderect(self.hitbox):
+                    obj.highlighted = True
+                else:
+                    obj.highlighted = False
         
         # Move the player
         # Player will not move vertically
