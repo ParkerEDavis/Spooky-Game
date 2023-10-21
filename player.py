@@ -75,6 +75,16 @@ class Player(pygame.sprite.Sprite):
         # Move rect
         self.rect.move_ip(dx, dy)
         self.hitbox.move_ip(dx, dy)
+
+        # If players moves into a loading zone, they transfer between levels
+        for zone in self.directory.load_zones:
+            # If player collides with load zone
+            if zone[0].colliderect(self.rect):
+                # Change level id to level if of loading zone
+                self.directory.level.level = zone[1]
+                
+                # Reload the level
+                self.directory.level.loadLevel()
     
 
     # Plops player down in a completely new location

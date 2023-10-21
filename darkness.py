@@ -82,7 +82,6 @@ class DarknessGame:
     def update(self):
         # First, check player movement
         self.player.update()
-        print(self.directory.load_zones)
 
 
     def draw(self):
@@ -100,6 +99,10 @@ class DarknessGame:
         # Then draw objects onto it
         for obj in self.directory.objects:
             obj.draw()
+        
+        # Drawing loading zones for now
+        for zone in self.directory.load_zones:
+            pygame.draw.rect(self.directory.surfaces['object'], (100, 100, 150), zone[0])
 
         # Player
         self.player.draw()
