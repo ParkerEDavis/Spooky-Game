@@ -7,15 +7,15 @@ class Directory:
         self.player = False
         self.level = False
         self.objects = []
-        self.layers = {}
+        self.surfaces = {}
 
     def link(self, type, thing, extra = False):
         if type == 'object':
             self.objects.append(thing)
         
-        elif type == 'layer':
+        elif type == 'surface':
             # A layer is passed as the object, and the name of the layer is passed as a key
-            self.layers[extra] = thing
+            self.surfaces[extra] = thing
         
         elif type == 'level':
             self.level = thing

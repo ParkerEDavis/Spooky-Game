@@ -1,5 +1,6 @@
 import pygame
 import player
+import level
 import directory
 
 class DarknessGame:
@@ -17,11 +18,17 @@ class DarknessGame:
         # Directory is rather experimental, hope this works.
         self.directory = directory.Directory(self.window)
         self.player = player.Player(self.directory)
+        self.level = level.Level(self.directory)
 
         # Link objects to the directory
         self.directory.link('player', self.player)
+        self.directory.link('level', self.level)
 
-        # Maybe to high, dunno
+        # Load the first level
+        self.level.loadLevel()
+        self.directory.link('surface', self.level.surface, "level")
+
+        # Maybe too high, dunno
         self.FPS = 60
         self.clock = pygame.time.Clock()
 
@@ -49,6 +56,11 @@ class DarknessGame:
                 # Moving Right
                 elif (event.key == pygame.K_d) or (event.key == pygame.K_RIGHT):
                     self.player.moving_right = True
+                
+                # Test for level switch
+                elif event.key == pygame.K_SPACE:
+                    self.level.level += 1
+                    self.level.loadLevel()
             
             # Key Releases
             elif event.type == pygame.KEYUP:
@@ -72,11 +84,13 @@ class DarknessGame:
         self.window.fill((100, 100, 200))
         
         # Level
+        self.window.blit(self.directory.surfaces['level'], (0, 0))
 
         # Objects
 
         # Player
-        self.player.draw() 
+        self.player.draw()
+    
 
     def run(self):
         ### Main Game Loop ###
@@ -94,4 +108,4 @@ class DarknessGame:
             pygame.display.flip()
             
             # FPS Limiter
-            self.clock.tick(self.FPS)
+            self.clock.tick(self.FPS) 
