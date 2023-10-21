@@ -1,8 +1,6 @@
 import pygame
-import interactable
 
-
-class Lightswitch(interactable.Interactable):
+class Lightswitch:
     def __init__(self, directory, x, y):
         # Directory
         self.directory = directory
