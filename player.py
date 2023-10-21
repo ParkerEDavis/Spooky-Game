@@ -17,20 +17,20 @@ class Player(pygame.sprite.Sprite):
         self.hitbox = pygame.Rect(self.x - 16, self.y - 16, self.width + 32, self.height + 32)
 
         # Movement
-        self.speed = 1
+        self.speed = 3
         self.moving_left = False
         self.moving_right = False
     
 
-    # Draw
-    def draw(self):
-        # Fill surface with transparent pixels
-        self.directory.surfaces['player'].fill((0, 0, 0, 0))
+    def interact(self):
+        # If the interact button is pressed, check for interactables and activate them
+        # If one is activated, stop searching, only one should activate at a time.
+        # This may cause problems eventually, but multiple objects shouldn't be that close to each other.
+        for obj in self.directory.objects:
+            if obj.rect.colliderect(self.hitbox):
+                obj.activate()
+                return
 
-        # Draw rects
-        pygame.draw.rect(self.directory.surfaces['player'], (100, 200, 200, 125), self.hitbox)
-        pygame.draw.rect(self.directory.surfaces['player'], (200, 200, 200), self.rect)
-    
 
     def update(self):
         ## Player Movement ##
@@ -90,3 +90,13 @@ class Player(pygame.sprite.Sprite):
         # Update rects
         self.rect.move_ip(dx, dy)
         self.hitbox.move_ip(dx, dy)
+    
+
+    # Draw
+    def draw(self):
+        # Fill surface with transparent pixels
+        self.directory.surfaces['player'].fill((0, 0, 0, 0))
+
+        # Draw rects
+        pygame.draw.rect(self.directory.surfaces['player'], (100, 200, 200, 125), self.hitbox)
+        pygame.draw.rect(self.directory.surfaces['player'], (200, 200, 200), self.rect)

@@ -1,5 +1,5 @@
 import pygame
-import interactable
+import lightswitch
 
 
 class Level:
@@ -86,4 +86,4 @@ class Level:
             if line[0] == 'visual':
                 self.visual_surface.blit(pygame.image.load(f"data/assets/{line[3]}.png"), (int(line[1]), int(line[2])))
             elif line[0] == 'object':
-                self.directory.link('object', interactable.Interactable(self.directory, int(line[1]), int(line[2]), 64, 64))
+                self.directory.link('object', lightswitch.Lightswitch(self.directory, int(line[1]), int(line[2])))
