@@ -50,7 +50,11 @@ class Level:
 
         data.pop(0)
 
+        # Recreate the surface
         self.surface = pygame.Surface((self.width, self.height))
+
+        # And link the new one
+        self.directory.surfaces["level"] = self.surface
 
         # The third line is border information
         self.borders[0] = int(data[0][0])

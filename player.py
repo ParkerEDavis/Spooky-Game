@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
         # Movement
-        self.speed = 5
+        self.speed = 3
         self.moving_left = False
         self.moving_right = False
     
@@ -55,7 +55,10 @@ class Player(pygame.sprite.Sprite):
 
     # Plops player down in a completely new location
     def moveTo(self, new_x, new_y):
-        self.x = new_x
-        self.y = new_y
+        dx = new_x - self.x
+        dy = new_y - self.y
+        
+        self.x += dx
+        self.y += dy
 
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.rect.move_ip(dx, dy)

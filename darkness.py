@@ -56,6 +56,11 @@ class DarknessGame:
                 # Moving Right
                 elif (event.key == pygame.K_d) or (event.key == pygame.K_RIGHT):
                     self.player.moving_right = True
+                
+                # Test for level switch
+                elif event.key == pygame.K_SPACE:
+                    self.level.level += 1
+                    self.level.loadLevel()
             
             # Key Releases
             elif event.type == pygame.KEYUP:
