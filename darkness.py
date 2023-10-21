@@ -60,9 +60,13 @@ class DarknessGame:
                     self.player.moving_right = True
                 
                 # Test for level switch
-                elif event.key == pygame.K_SPACE:
+                elif event.key == pygame.K_n:
                     self.level.level += 1
                     self.level.loadLevel()
+                
+                # Player Interact
+                elif event.key == pygame.K_SPACE:
+                    self.player.interact()
             
             # Key Releases
             elif event.type == pygame.KEYUP:

@@ -25,11 +25,14 @@ class Lightswitch:
 
     def activate(self):
         # Calls when the player presses activate when object is in hitbox
-        if self.activated:
+        if not self.activated:
             self.color = (100, 150, 100)
-        
+            self.activated = True
+
+        # If green, turn off (red)
         else:
             self.color = (150, 100, 100)
+            self.activated = False
 
 
     def draw(self):
