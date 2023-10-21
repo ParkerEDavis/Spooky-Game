@@ -106,9 +106,20 @@ class DarknessGame:
         self.player.draw()
         
         # Drawing the layers
-        self.window.blit(self.directory.surfaces['visual'], (0, 0))
-        self.window.blit(self.directory.surfaces['object'], (0, 0))
-        self.window.blit(self.directory.surfaces['player'], (0, 0))
+        # This is how much the the layers will be shifted to the left
+        # If the player is not too close to the edge
+        x_offset = 288 - self.player.x
+        
+        if x_offset > 0:
+            x_offset = 0
+        
+        elif self.level.width - 640 + x_offset < 0:
+            x_offset = -self.level.width + 640
+        
+        # Display the layers
+        self.window.blit(self.directory.surfaces['visual'], (x_offset, 0))
+        self.window.blit(self.directory.surfaces['object'], (x_offset, 0))
+        self.window.blit(self.directory.surfaces['player'], (x_offset, 0))
     
 
     def run(self):
