@@ -8,12 +8,12 @@ class Lightswitch:
         # Dimensions
         self.x = x
         self.y = y
-        self.width = 64
-        self.height = 64
+        self.width = 24
+        self.height = 24
 
         # Rect
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.highlight_rect = pygame.Rect(self.x - 5, self.y - 5, self.width + 10, self.height + 10)
+        self.highlight_rect = pygame.Rect(self.x - 3, self.y - 3, self.width + 6, self.height + 6)
 
         # Flags
         self.highlighted = False
