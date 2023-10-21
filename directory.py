@@ -9,6 +9,7 @@ class Directory:
         self.objects = []
         self.surfaces = {}
 
+    
     def link(self, type, thing, extra = False):
         if type == 'object':
             self.objects.append(thing)
