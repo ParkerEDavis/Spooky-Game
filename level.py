@@ -84,6 +84,17 @@ class Level:
         # "visual" [x] [y] "name (to be used to find image)"
         for line in data:
             if line[0] == 'visual':
-                self.visual_surface.blit(pygame.image.load(f"data/assets/{line[3]}.png"), (int(line[1]), int(line[2])))
+                # Load visual image
+                img = pygame.image.load(f"data/assets/{line[3]}.png")
+                
+                # Scale and flip to specified sizes
+                # Takes image dimensions and multiplies by given scale factor
+                img = pygame.transform.scale(img, (img.get_width() * float(line[5]), img.get_height() * float(line[5])))
+
+                # Flips
+                img = pygame.transform.flip(img, int(line[4]), 0)
+
+                # Display the image
+                self.visual_surface.blit(img, (int(line[1]), int(line[2])))
             elif line[0] == 'object':
                 self.directory.link('object', lightswitch.Lightswitch(self.directory, int(line[1]), int(line[2])))

@@ -1,8 +1,10 @@
 240 400
 640 640
-80 560
-visual 0 0 roof
-visual 0 176 wall
-visual 0 464 floor
-object 400 376 lightswitch
-object 200 376 lightswitch
+40 600
+visual 0 0 roof 0 1
+visual 0 176 wall 0 1
+visual 0 464 floor 0 1
+visual -2 240 door 1 .25
+visual 505 240 door 0 .25
+object 400 376 lightswitch 0 1
+object 200 376 lightswitch 0 1
