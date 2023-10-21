@@ -88,9 +88,7 @@ class DarknessGame:
         ### Basically, draw everything ###
         # Background
         self.window.fill((100, 100, 200))
-        
-        # Level
-        
+
 
         # Objects
         # Clear object surface

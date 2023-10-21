@@ -43,13 +43,11 @@ class Level:
         for line in raw_data:
             data.append(line.split())
         
-        print(zone)
         # The first line is the player's potential positions
         for i in range(len(data[0])):
             # Search for a position that matches the loading zone's direction
             if data[0][i] == zone[2]:
                 # Then, when found, move player to it
-                print(zone[2], int(data[0][i+1]), int(data[0][i+2]))
                 self.directory.player.moveTo(int(data[0][i+1]), int(data[0][i+2]))
                 break
 
