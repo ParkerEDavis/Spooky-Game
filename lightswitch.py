@@ -48,4 +48,6 @@ class Lightswitch:
         pygame.draw.rect(self.directory.surfaces['object'], self.color, self.rect)
         
         if self.highlighted:
-            pygame.draw.rect(self.directory.surfaces['object'], (0, 0, 0), self.highlight_rect, 5)
+            pygame.draw.rect(self.directory.surfaces['highlight'], (200, 200, 200), self.highlight_rect, 5)
+        
+        self.highlighted = False

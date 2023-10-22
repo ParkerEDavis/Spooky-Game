@@ -44,6 +44,7 @@ class Player(pygame.sprite.Sprite):
         self.art["walkL"].append(pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy3.png"), (94, 94)), 1, 0))
 
         self.art["eyes"].append(pygame.transform.scale(pygame.image.load("data/assets/little_guy/eyes.png"), (94, 94)))
+        self.art["eyes"].append(pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/assets/little_guy/eyes.png"), (94, 94)), 1, 0))
 
 
     def interact(self):
@@ -77,12 +78,14 @@ class Player(pygame.sprite.Sprite):
             dx = self.directory.level.borders[0] - self.x
         
         # Then, if player moved, check for objects in hitbox, if so, highlight
-        if dx != 0:
-            for obj in self.directory.objects:
-                if obj.rect.colliderect(self.hitbox):
-                    obj.highlighted = True
-                else:
-                    obj.highlighted = False
+        for obj in self.directory.objects:
+            if obj.rect.colliderect(self.hitbox):
+                obj.highlighted = True
+            else:
+                obj.highlighted = False
+                
+            # Redraw highlight layer
+
         
         # Move the player
         # Player will not move vertically
@@ -126,6 +129,7 @@ class Player(pygame.sprite.Sprite):
     def draw(self):
         # Fill surface with transparent pixels
         self.directory.surfaces['player'].fill((0, 0, 0, 0))
+        self.directory.surfaces['eyes'].fill((0, 0, 0, 0))
 
         # Draw rects
         #pygame.draw.rect(self.directory.surfaces['player'], (100, 200, 200, 125), self.hitbox)
@@ -136,15 +140,20 @@ class Player(pygame.sprite.Sprite):
         if self.moving_left or self.moving_right:
             if self.direction == 'left':
                 self.directory.surfaces['player'].blit(self.art["walkL"][self.frame // 10], (self.x, self.y))
+                self.directory.surfaces['eyes'].blit(self.art["eyes"][1], (self.x, self.y))
             elif self.direction == 'right':
                 self.directory.surfaces['player'].blit(self.art["walkR"][self.frame // 10], (self.x, self.y))
+                self.directory.surfaces['eyes'].blit(self.art["eyes"][0], (self.x, self.y))
             
             self.frame += 1
             if self.frame > 39:
                 self.frame = 0
+        
         else:
             self.frame = 0
             if self.direction == 'left':
                 self.directory.surfaces['player'].blit(self.art["idle"][1], (self.x, self.y))
+                self.directory.surfaces['eyes'].blit(self.art["eyes"][1], (self.x, self.y))
             elif self.direction == 'right':
                 self.directory.surfaces['player'].blit(self.art["idle"][0], (self.x, self.y))
+                self.directory.surfaces['eyes'].blit(self.art["eyes"][0], (self.x, self.y))

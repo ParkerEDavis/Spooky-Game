@@ -33,9 +33,6 @@ class DarknessGame:
 
         # Load the first level
         self.level.loadLevel([0, 'none'])
-        self.directory.link('surface', self.level.visual_surface, "visual")
-        self.directory.link('surface', self.level.object_surface, "object")
-        self.directory.link('surface', self.level.player_surface, "player")
         self.directory.link('surface', self.level.extra_surface, "extra")
 
         # Running flag
@@ -92,6 +89,7 @@ class DarknessGame:
         # Objects
         # Clear object surface
         self.directory.surfaces['object'].fill((0, 0, 0, 0))
+        self.directory.surfaces['highlight'].fill((0, 0, 0, 0))
         
         # Then draw objects onto it
         for obj in self.directory.objects:
@@ -116,7 +114,24 @@ class DarknessGame:
         # Display the layers
         self.window.blit(self.directory.surfaces['visual'], (x_offset, 0))
         self.window.blit(self.directory.surfaces['object'], (x_offset, 0))
-        self.window.blit(self.directory.surfaces['player'], (x_offset, 0))
+
+        # Make sure the proper layers are drawn when lights are on vs. off
+        # I KNOW this can be prettier.
+        # Probably
+        if f"light{self.level.level}" in self.directory.flags:
+            if self.directory.flags[f"light{self.level.level}"] == True:
+                #self.window.blit(self.directory.surfaces['player'], (x_offset, 0))
+                self.window.blit(self.directory.surfaces['darkness'], (x_offset, 0))
+                self.window.blit(self.directory.surfaces['highlight'], (x_offset, 0))
+                self.window.blit(self.directory.surfaces['eyes'], (x_offset, 0))
+            else:
+                self.window.blit(self.directory.surfaces['highlight'], (x_offset, 0))
+                self.window.blit(self.directory.surfaces['player'], (x_offset, 0))
+        
+        else:
+            self.window.blit(self.directory.surfaces['highlight'], (x_offset, 0))
+            self.window.blit(self.directory.surfaces['player'], (x_offset, 0))
+
         self.window.blit(self.directory.surfaces['extra'], (0, 0))
     
 
