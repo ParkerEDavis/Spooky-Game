@@ -20,6 +20,10 @@ class Player(pygame.sprite.Sprite):
         self.art = {"idle":[], "walkL":[], "walkR":[], "eyes":[]}
         self.loadArt()
 
+        # Sounds
+        pygame.mixer.init()
+        self.sounds = {"footstep": pygame.mixer.Sound("data/sounds/Sand.wav")}
+
         # Movement
         self.speed = 3
         self.frame = 0
@@ -145,6 +149,9 @@ class Player(pygame.sprite.Sprite):
                 self.directory.surfaces['player'].blit(self.art["walkR"][self.frame // 10], (self.x, self.y))
                 self.directory.surfaces['eyes'].blit(self.art["eyes"][0], (self.x, self.y))
             
+            if (self.frame) % 20 == 0:
+                self.sounds["footstep"].play()
+
             self.frame += 1
             if self.frame > 39:
                 self.frame = 0
