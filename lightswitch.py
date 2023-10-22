@@ -15,6 +15,9 @@ class Lightswitch:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.highlight_rect = pygame.Rect(self.x - 3, self.y - 3, self.width + 6, self.height + 6)
 
+        self.image = pygame.image.load("data/assets/lightswitch.png")
+        self.image_high = pygame.image.load("data/assets/lightswitch_high.png")
+
         # Flags
         self.highlighted = False
         self.activated = active
@@ -45,9 +48,13 @@ class Lightswitch:
 
 
     def draw(self):
-        pygame.draw.rect(self.directory.surfaces['object'], self.color, self.rect)
+        #pygame.draw.rect(self.directory.surfaces['object'], self.color, self.rect)
         
         if self.highlighted:
-            pygame.draw.rect(self.directory.surfaces['highlight'], (200, 200, 200), self.highlight_rect, 5)
+            #pygame.draw.rect(self.directory.surfaces['highlight'], (200, 200, 200), self.highlight_rect, 5)
+            self.directory.surfaces["object"].blit(self.image, (self.x, self.y))
+            self.directory.surfaces["highlight"].blit(self.image_high, (self.x, self.y))
+        else:
+            self.directory.surfaces["object"].blit(self.image, (self.x, self.y))
         
         self.highlighted = False
