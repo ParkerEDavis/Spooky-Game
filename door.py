@@ -9,8 +9,8 @@ class Door(pygame.sprite.Sprite):
         # Dimensions
         self.x = x
         self.y = y
-        self.width = 140
-        self.height = 225
+        self.width = 28
+        self.height = 140
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
