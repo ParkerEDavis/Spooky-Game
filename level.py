@@ -64,6 +64,12 @@ class Level:
             if data[0][i] == zone[1]:
                 # Then, when found, move player to it
                 self.directory.player.moveTo(int(data[0][i+1]), int(data[0][i+2]))
+
+                # Change facing direction.
+                if zone[1] == 'left' or zone[1] == 'right':
+                    self.directory.player.direction = zone[1]
+                else:
+                    self.directory.player.direction = 'right'
                 break
 
         data.pop(0)
