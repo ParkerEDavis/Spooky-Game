@@ -1,4 +1,4 @@
-left 540 370
+right 40 370
 640 640
 40 600
 visual 0 0 roof 0 1
@@ -6,5 +6,5 @@ visual 0 176 wall 0 1
 visual 0 464 roof 0 1
 visual 0 0 border 0 1
 visual 600 0 border 0 1
-object 572 324 door 2 0 right
+object 40 324 door 1 1 left
 object 300 376 lightswitch

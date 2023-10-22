@@ -5,6 +5,8 @@ visual 0 0 roof 0 1
 visual 0 176 wall 0 1
 visual 0 464 roof 0 1
 visual 288 176 lamp 0 1
-object -2 325 door 1 2 left
-object 505 325 door 2 1 right
+visual 0 0 border 0 1
+visual 600 0 border 0 1
+object 40 324 door 1 2 left
+object 572 324 door 2 1 right
 object 400 376 lightswitch

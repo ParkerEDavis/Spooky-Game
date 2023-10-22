@@ -37,7 +37,9 @@ class Door(pygame.sprite.Sprite):
     def draw(self):
         # Display the image
         # Uhh, fix this
+        # Fixed
         if self.highlighted:
             self.directory.surfaces['highlight'].blit(self.image_highlighted, (self.x, self.y))
+            self.directory.surfaces['visual'].blit(self.image, (self.x, self.y))
         else:
             self.directory.surfaces['visual'].blit(self.image, (self.x, self.y))
