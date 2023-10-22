@@ -9,18 +9,43 @@ class Player(pygame.sprite.Sprite):
         self.x = 0
         self.y = 0
 
-        self.width = 64
-        self.height = 64
+        self.width = 94
+        self.height = 94
 
         # Rect
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.hitbox = pygame.Rect(self.x - 16, self.y - 16, self.width + 32, self.height + 32)
 
+        # Art
+        self.art = {"idle":[], "walkL":[], "walkR":[], "eyes":[]}
+        self.loadArt()
+
         # Movement
         self.speed = 3
+        self.frame = 0
         self.moving_left = False
         self.moving_right = False
+
+        self.direction = 'right'
     
+
+    def loadArt(self):
+        self.art["idle"].append(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy1.png"), (94, 94)))
+        self.art["idle"].append(pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy1.png"), (94, 94)), 1, 0))
+
+        self.art["walkR"].append(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy1.png"), (94, 94)))
+        self.art["walkR"].append(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy2.png"), (94, 94)))
+        self.art["walkR"].append(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy1.png"), (94, 94)))
+        self.art["walkR"].append(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy3.png"), (94, 94)))
+        
+        self.art["walkL"].append(pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy1.png"), (94, 94)), 1, 0))
+        self.art["walkL"].append(pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy2.png"), (94, 94)), 1, 0))
+        self.art["walkL"].append(pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy1.png"), (94, 94)), 1, 0))
+        self.art["walkL"].append(pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/assets/little_guy/little_guy3.png"), (94, 94)), 1, 0))
+
+        self.art["eyes"].append(pygame.transform.scale(pygame.image.load("data/assets/little_guy/eyes.png"), (94, 94)))
+        self.art["eyes"].append(pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/assets/little_guy/eyes.png"), (94, 94)), 1, 0))
+
 
     def interact(self):
         # If the interact button is pressed, check for interactables and activate them
@@ -53,16 +78,19 @@ class Player(pygame.sprite.Sprite):
             dx = self.directory.level.borders[0] - self.x
         
         # Then, if player moved, check for objects in hitbox, if so, highlight
-        if dx != 0:
-            for obj in self.directory.objects:
-                if obj.rect.colliderect(self.hitbox):
-                    obj.highlighted = True
-                else:
-                    obj.highlighted = False
+        for obj in self.directory.objects:
+            if obj.rect.colliderect(self.hitbox):
+                obj.highlighted = True
+            else:
+                obj.highlighted = False
+                
+            # Redraw highlight layer
+
         
         # Move the player
         # Player will not move vertically
-        self.move(dx, 0)
+        if dx != 0:
+            self.move(dx, 0)
     
 
     # Moves the player a given number of pixels
@@ -72,16 +100,14 @@ class Player(pygame.sprite.Sprite):
         self.x += dx
         self.y += dy
 
+        if dx > 0:
+            self.direction = 'right'
+        else:
+            self.direction = 'left'
+
         # Move rect
         self.rect.move_ip(dx, dy)
         self.hitbox.move_ip(dx, dy)
-
-        # If players moves into a loading zone, they transfer between levels
-        #for zone in self.directory.load_zones:
-            # If player collides with load zone
-        #    if zone[0].colliderect(self.rect):
-                # Reload the level, passing the loading zone
-        #        self.directory.level.loadLevel(zone)
     
 
     # Plops player down in a completely new location
@@ -103,7 +129,31 @@ class Player(pygame.sprite.Sprite):
     def draw(self):
         # Fill surface with transparent pixels
         self.directory.surfaces['player'].fill((0, 0, 0, 0))
+        self.directory.surfaces['eyes'].fill((0, 0, 0, 0))
 
         # Draw rects
         #pygame.draw.rect(self.directory.surfaces['player'], (100, 200, 200, 125), self.hitbox)
-        pygame.draw.rect(self.directory.surfaces['player'], (200, 200, 200), self.rect)
+        #pygame.draw.rect(self.directory.surfaces['player'], (200, 200, 200), self.rect)
+
+        # Drawing
+        # If Moving
+        if self.moving_left or self.moving_right:
+            if self.direction == 'left':
+                self.directory.surfaces['player'].blit(self.art["walkL"][self.frame // 10], (self.x, self.y))
+                self.directory.surfaces['eyes'].blit(self.art["eyes"][1], (self.x, self.y))
+            elif self.direction == 'right':
+                self.directory.surfaces['player'].blit(self.art["walkR"][self.frame // 10], (self.x, self.y))
+                self.directory.surfaces['eyes'].blit(self.art["eyes"][0], (self.x, self.y))
+            
+            self.frame += 1
+            if self.frame > 39:
+                self.frame = 0
+        
+        else:
+            self.frame = 0
+            if self.direction == 'left':
+                self.directory.surfaces['player'].blit(self.art["idle"][1], (self.x, self.y))
+                self.directory.surfaces['eyes'].blit(self.art["eyes"][1], (self.x, self.y))
+            elif self.direction == 'right':
+                self.directory.surfaces['player'].blit(self.art["idle"][0], (self.x, self.y))
+                self.directory.surfaces['eyes'].blit(self.art["eyes"][0], (self.x, self.y))

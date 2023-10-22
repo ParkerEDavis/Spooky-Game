@@ -9,8 +9,8 @@ class Door(pygame.sprite.Sprite):
         # Dimensions
         self.x = x
         self.y = y
-        self.width = 140
-        self.height = 225
+        self.width = 28
+        self.height = 140
 
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
@@ -36,7 +36,10 @@ class Door(pygame.sprite.Sprite):
 
     def draw(self):
         # Display the image
+        # Uhh, fix this
+        # Fixed
         if self.highlighted:
-            self.directory.surfaces['visual'].blit(self.image_highlighted, (self.x, self.y))
+            self.directory.surfaces['highlight'].blit(self.image_highlighted, (self.x, self.y))
+            self.directory.surfaces['visual'].blit(self.image, (self.x, self.y))
         else:
             self.directory.surfaces['visual'].blit(self.image, (self.x, self.y))

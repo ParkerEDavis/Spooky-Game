@@ -17,6 +17,8 @@ class Level:
 
         self.visual_surface = pygame.Surface((100, 100))
         self.object_surface = pygame.Surface((100, 100))
+        self.darkness_surface = pygame.Surface((100, 100))
+        self.eyes_surface = pygame.Surface((100, 100))
 
         # For fades to black
         self.extra_surface = pygame.Surface((640, 640)).convert_alpha()
@@ -64,6 +66,12 @@ class Level:
             if data[0][i] == zone[1]:
                 # Then, when found, move player to it
                 self.directory.player.moveTo(int(data[0][i+1]), int(data[0][i+2]))
+
+                # Change facing direction.
+                if zone[1] == 'left' or zone[1] == 'right':
+                    self.directory.player.direction = zone[1]
+                else:
+                    self.directory.player.direction = 'right'
                 break
 
         data.pop(0)
@@ -78,15 +86,26 @@ class Level:
         self.visual_surface = pygame.Surface((self.width, self.height))
         self.object_surface = pygame.Surface((self.width, self.height)).convert_alpha()
         self.player_surface = pygame.Surface((self.width, self.height)).convert_alpha()
+        self.highlight_surface = pygame.Surface((self.width, self.height)).convert_alpha()
+        self.eyes_surface = pygame.Surface((self.width, self.height)).convert_alpha()
+        self.darkness_surface = pygame.Surface((self.width, self.height)).convert_alpha()
 
         # Make sure the object surface is transparent
         self.object_surface.fill((0, 0, 0, 0))
         self.player_surface.fill((0, 0, 0, 0))
+        self.eyes_surface.fill((0, 0, 0, 0))
+        self.darkness_surface.fill((0, 0, 0, 255))
+        self.highlight_surface.fill((0, 0, 0, 0))
 
         # And link the new one
         self.directory.surfaces['visual'] = self.visual_surface
         self.directory.surfaces['object'] = self.object_surface
         self.directory.surfaces['player'] = self.player_surface
+        self.directory.surfaces['highlight'] = self.highlight_surface
+        self.directory.surfaces['eyes'] = self.eyes_surface
+        self.directory.surfaces['darkness'] = self.darkness_surface
+
+        #pygame.draw.rect(self.directory.surfaces['darkness'], (0, 0, 0, 0), (0, 176, 640, 288))
 
         # Clear old level data while we're at it
         self.directory.objects.clear()
