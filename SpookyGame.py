@@ -3,7 +3,10 @@ import player
 import level
 import directory
 
-class DarknessGame:
+# For WebGL version
+# import asyncio
+
+class SpookyGame:
     def __init__(self):
         ### Engine Variables ###
         # Will not be able to change window size.
@@ -134,7 +137,7 @@ class DarknessGame:
 
         self.window.blit(self.directory.surfaces['extra'], (0, 0))
     
-
+    #async 
     def run(self):
         ### Main Game Loop ###
         while self.running:
@@ -151,4 +154,18 @@ class DarknessGame:
             pygame.display.flip()
             
             # FPS Limiter
-            self.clock.tick(self.FPS) 
+            # For Local version
+            self.clock.tick(self.FPS)
+
+            # For WebGL version
+            #await asyncio.sleep(1/self.FPS)
+
+
+
+GAME = SpookyGame()
+if __name__ == "__main__":
+    # For Local Version
+    GAME.run()
+
+    # For WebGL version
+    #asyncio.run(GAME.run())
