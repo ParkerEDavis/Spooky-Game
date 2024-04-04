@@ -6,7 +6,7 @@ import directory
 # For WebGL version
 # import asyncio
 
-class DarknessGame:
+class SpookyGame:
     def __init__(self):
         ### Engine Variables ###
         # Will not be able to change window size.
@@ -162,7 +162,7 @@ class DarknessGame:
 
 
 
-GAME = DarknessGame()
+GAME = SpookyGame()
 if __name__ == "__main__":
     # For Local Version
     GAME.run()
