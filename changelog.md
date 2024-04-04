@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.1] - 2024-04-04
+## [0.1.0] - 2024-04-04
 
 ### Added
  - WebGL support with asyncio (Must change commeted code)
